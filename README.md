@@ -10,29 +10,31 @@ The working example is a **Poisson Regression Model**, a GLM used for modeling c
 
 Key tasks:
 
-- Introduce the GLM framework:
+* Introduce the GLM framework:
 
-  - **Random component:** probability distribution of the response (Poisson for counts)
-  - **Systematic component:** linear predictor
-  - **Link function:** typically log link for Poisson GLMs
-  
-- Derive:
+  * **Random component:** probability distribution of the response (Poisson for counts)
+  * **Systematic component:** linear predictor
+  * **Link function:** typically log link for Poisson GLMs
 
-  - Poisson log-likelihood function
-  - Score function and Hessian
-  - Analytical form of the MLE for ( \beta ), if available, or the iterative procedure (e.g., Newton-Raphson)
-  
-- Evaluate whether the estimator is **biased or unbiased**.
+* Derive:
+
+  * Poisson log-likelihood function
+  * Score function and Hessian
+  * Analytical form of the MLE for, if available, or the iterative procedure (e.g., Newton-Raphson)
+
+* Evaluate whether the estimator is **biased or unbiased**.
 
 
-## **Computational Component — Simulation and Estimation in R**
+
+## **Computational Component - Simulation and Estimation in R**
 
 This part validates the analytical results using numerical experiments.
 
 Steps:
 
-- Simulate a dataset from a Poisson GLM.
-- Implement the likelihood and optimization procedure in R.
-- Compare:
-  - Analytical MLE vs. simulated MLE
-  - Estimated parameters vs. true parameters
+* Simulate a dataset from a Poisson GLM.
+* Implement the likelihood and optimization procedure in R.
+* Compare:
+
+  * Analytical MLE vs. simulated MLE
+  * Estimated parameters vs. true parameters
