@@ -24,7 +24,7 @@
 	
 	\subsection*{Intuitive Explanation}
 	
-	The basic intuition behind Maximum Likelihood Estimation is grounded in probability. Suppose we have a random sample of data, $X_1, X_2, \dots, X_n$, and we assume this data comes from a specific probability distribution (like a Normal or Bernoulli distribution). This distribution depends on some unknown parameter, denoted by $\theta$.
+	The basic intuition behind Maximum Likelihood Estimation is grounded in probability. Given a random sample of data, $X_1, X_2, \dots, X_n$, and assume this data comes from a specific probability distribution (like a Normal or Bernoulli distribution). This distribution depends on some unknown parameter, denoted by $\theta$.
 	
 	\begin{figure}[H]
 		\centering
@@ -33,9 +33,9 @@
 		\label{fig:normal_distributions}
 	\end{figure}
 	
-	The method suggests that the optimal parameter value is the specific $\theta$ that maximizes the probability (or likelihood) of having generated the data we actually collected.
+	The method suggests that the optimal parameter value is the specific $\theta$ that maximizes the probability (or likelihood) of having generated the data that was actually collected.
 	
-	In a nutshell: We treat the probability of our data as a function of the unknown parameter. We then ask, ``Which value of the parameter makes our observed data most likely to have happened?''
+	In a nutshell: We treat the probability of our data as a function of the unknown parameter. We then ask, "Which value of the parameter makes our observed data most likely to have happened?"
 	
 	\subsection*{The Likelihood Function}
 	\label{sec:likelihood}
@@ -47,13 +47,13 @@
 	
 	$$ L(\boldsymbol{\theta}) = \mathbb{P}(X_1 = x_1, X_2 = x_2, \cdots, X_n = x_n) = \prod_{i=1}^{n} f(x_i; \boldsymbol{\theta}) $$
 	
-	The first equality is merely the definition of the joint probability mass function. The second equality stems from the fact that we have a random sample, which inherently means that the samples are independent. 
+	The first equality is merely the definition of the joint probability mass function. The second equality stems from the fact that it is a random sample, which inherently means that the samples are independent. 
 	
 	The function is defined for all parameter vectors $(\theta_1, \dots, \theta_m)$ in the parameter space $\Omega$.
 	
 	\subsubsection*{Example: Likelihood for Bernoulli Data}
 	
-	Suppose we have a random sample of $n$ independent coin flips $X_1, \dots, X_n$, where $X_i \in \{0, 1\}$, and the probability of success is $p$. The probability mass function is $f(x_i; p) = p^{x_i} (1-p)^{1-x_i}$. The likelihood function $L(p)$ is the product of the individual probabilities:
+	Given a random sample of $n$ independent coin flips $X_1, \dots, X_n$, where $X_i \in \{0, 1\}$, and the probability of success is $p$, the probability mass function is $f(x_i; p) = p^{x_i} (1-p)^{1-x_i}$. The likelihood function $L(p)$ is the product of the individual probabilities:
 	$$ L(p) = \prod_{i=1}^{n} p^{x_i} (1-p)^{1-x_i} = p^{\sum x_i} (1-p)^{n - \sum x_i} $$
 	
 	\subsubsection*{The Necessity of Log-Likelihood}
@@ -68,7 +68,7 @@
 	
 	The use of the natural logarithm is justified because it is a \textit{strictly monotonically increasing function}. This property ensures that the maximum point of the Likelihood function $L(\theta)$ is exactly the same as the maximum point of the Log-Likelihood function $\ln L(\theta)$.
 	
-	If we consider any two parameter values $\theta_a$ and $\theta_b$:
+	Consider any two parameter values $\theta_a$ and $\theta_b$:
 	$$ L(\theta_a) > L(\theta_b) \iff \ln(L(\theta_a)) > \ln(L(\theta_b)) $$
 	
 	Therefore, maximizing the simpler function, $\ln L(\theta)$, yields the identical maximum likelihood solution, $\hat{\theta}$. The optimization procedure involves differentiating the Log-Likelihood, setting it to zero, and solving for $\theta$:
@@ -82,9 +82,9 @@
 	Using the logarithm property $\ln(a^b c^d) = b\ln(a) + d\ln(c)$:
 	$$ \ln L(p) = \left(\sum_{i=1}^{n} x_i\right) \ln(p) + \left(n - \sum_{i=1}^{n} x_i\right) \ln(1-p) $$
 	
-	Therefore, we have (remember, the necessary condition for a maximum is that the derivative equals $0$):
+	Thus (remember, the necessary condition for a maximum is that the derivative equals $0$):
 	
-	$$ \frac{\partial \ln L(p)}{\partial p} = \frac{\sum x_i}{p} - \frac{n - \sum x_i}{1 - p} \text{ which we set to } 0$$
+	$$ \frac{\partial \ln L(p)}{\partial p} = \frac{\sum x_i}{p} - \frac{n - \sum x_i}{1 - p} \overset{\text{set}}{=} 0$$
 	
 	Then: $$ \left( \sum x_i \right) (1 - p) - \left( n - \sum x_i \right) p = 0 \implies \sum x_i - np = 0$$
 	
@@ -151,7 +151,7 @@
 	
 	The simplest and most intuitive way to model the relationship between variables is to assume a straight-line connection. Imagine trying to predict someone's weight based on their height - we might reasonably expect that taller people tend to weigh more, and this relationship could be approximated by a line. Linear models capture this idea mathematically, providing a framework for understanding how changes in one variable correspond to changes in another.
 	
-	In a linear model, we express the response variable as a weighted combination of predictor variables plus some random noise that accounts for natural variability and measurement error. The goal is to find the best-fitting line (or hyperplane in higher dimensions) that minimizes the discrepancies between our predictions and the actual observed values.
+	In a linear model, the response variable is expressed as a weighted combination of predictor variables plus some random noise that accounts for natural variability and measurement error. The goal is to find the best-fitting line (or hyperplane in higher dimensions) that minimizes the discrepancies between our predictions and the actual observed values.
 	
 	\subsubsection*{The Linear Model Framework}
 	
@@ -165,7 +165,7 @@
 		\item $X_{i_j}$ represents the $j$-th predictor variable for the $i$-th observation
 		\item $\beta_0$ is the intercept term (the expected value of $Y$ when all predictors are zero)
 		\item $\beta_1, \beta_2, \dots, \beta_p$ are the regression coefficients (slopes) that quantify the effect of each predictor
-		\item $\epsilon_i$ is the random error term for observation $i$ assumed to be independent and identically distributed (i.i.d.) as $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$
+		\item $\epsilon_i$ is the random error term for observation $i$ assumed to be independent and identically distributed (i.i.d.) such that $\mathbb{E}[\epsilon_i] = 0$ and $\text{var}(\epsilon_i) = \sigma^2$ (where $\sigma^2$ is a constant). Typically, it is assumed that $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$.
 	\end{itemize}
 	
 	In matrix notation, the linear model for all $n$ observations can be written compactly as (with the first column of $\mathbf{X}$ typically being all ones for the intercept):
@@ -175,7 +175,6 @@
 	\subsubsection*{Maximum Likelihood Estimation for Linear Models}
 	
 	Under the normality assumption for the errors, the response variable $Y_i$ follows a normal distribution:
-	
 	$$ Y_i \sim \mathcal{N}(\mu_i, \sigma^2) \quad \text{where} \quad \mu_i = \beta_0 + \left( \sum \limits_{j = 1}^p \beta_j X_{i_j} \right) $$
 	
 	The probability density function for observation $Y_i$ is:
@@ -192,7 +191,6 @@
 	\ln L(\boldsymbol{\beta}, \sigma^2) &= \ln \left[ \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y_i - \mu_i)^2}{2\sigma^2}\right) \right] \\
 		&= \sum_{i=1}^{n} \ln \left[ \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(y_i - \mu_i)^2}{2\sigma^2}\right) \right] \\
 		&= \sum_{i=1}^{n} \left[ \ln\left(\frac{1}{\sqrt{2\pi\sigma^2}}\right) + \ln\left(\exp\left(-\frac{(y_i - \mu_i)^2}{2\sigma^2}\right)\right) \right] \\
-		&= \sum_{i=1}^{n} \left[ \ln\left(\frac{1}{\sqrt{2\pi\sigma^2}}\right) - \frac{(y_i - \mu_i)^2}{2\sigma^2} \right] \\
 		&= \sum_{i=1}^{n} \left[ -\frac{1}{2}\ln(2\pi\sigma^2) - \frac{(y_i - \mu_i)^2}{2\sigma^2} \right] \\
 		&= \sum_{i=1}^{n} \left[ -\frac{1}{2}\ln(2\pi) - \frac{1}{2}\ln(\sigma^2) - \frac{(y_i - \mu_i)^2}{2\sigma^2} \right] \\
 		&= -\frac{n}{2}\ln(2\pi) - \frac{n}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(y_i - \mu_i)^2
@@ -202,7 +200,7 @@
 	
 	$$ \ln L(\boldsymbol{\beta}, \sigma^2) = -\frac{n}{2}\ln(2\pi) - \frac{n}{2}\ln(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(y_i - \mathbf{x}_i^T\boldsymbol{\beta})^2 $$
 	
-	To find the maximum likelihood estimator $\hat{\boldsymbol{\beta}}$, we differentiate with respect to $\boldsymbol{\beta}$ and set equal to zero:
+	To find the maximum likelihood estimator $\hat{\boldsymbol{\beta}}$, differentiate with respect to $\boldsymbol{\beta}$ and set equal to zero:
 	
 	$$ \frac{\partial \ln L(\boldsymbol{\beta}, \sigma^2)}{\partial \boldsymbol{\beta}} = \frac{1}{\sigma^2}\sum_{i=1}^{n}\mathbf{x}_i(y_i - \mathbf{x}_i^T\boldsymbol{\beta}) = \mathbf{X}^T(\mathbf{Y} - \mathbf{X}\boldsymbol{\beta}) \overset{\text{set}}{=} \mathbf{0} $$
 	
@@ -242,8 +240,8 @@
 	
 	\subsubsection*{Exponential Family}
 	
-	Most commonly used statistical distributions belong to the exponential family, whose probability density (or mass) functions can be written in the canonical form:
-	$$ f(y; \theta, \phi) = \exp \left( \frac{y\theta - b(\theta)}{\phi} + c(y, \phi) \right) $$
+	Most commonly used statistical distributions belong to the exponential family, whose probability density (or mass) functions can be written in the canonical from  \cite{GLM}:
+	$$ f(y; \theta, \phi) = \exp \left( \frac{y\theta - b(\theta)}{\phi + c(y, \phi)} \right) $$
 	
 	where:
 	\begin{itemize}
@@ -263,7 +261,7 @@
 	A GLM consists of three components that work together to model the relationship between predictors and response: 
 	
 	\begin{enumerate}
-		\item \textbf{The Random Component:} This specifies the probability distribution of the response variable $Y_i$. In a GLM, we assume that $Y_i$ follows a distribution from the \textit{exponential family}, which includes:
+		\item \textbf{The Random Component:} This specifies the probability distribution of the response variable $Y_i$. In a GLM, it is assumed that $Y_i$ follows a distribution from the \textit{exponential family}, which includes:
 		\begin{itemize}
 			\item Normal distribution (for continuous data)
 			\item Binomial distribution (for binary or proportion data)
@@ -272,15 +270,15 @@
 		\end{itemize}
 	
 	\item \textbf{The Systematic Component:} This is the linear predictor, which combines the predictor variables linearly:
-	$$ \eta_i = \beta_0 + \beta_1 x_{i_1} + \beta_2 x_{i_2} + \cdots + \beta_p x_{i_p} = \sum_{j=0}^{p} \beta_j x_{ij} $$
+	$$ \mathbf{x}_i^T\boldsymbol{\beta} = \beta_0 + \beta_1 x_{i_1} + \beta_2 x_{i_2} + \cdots + \beta_p x_{i_p} = \sum_{j=0}^{p} \beta_j x_{ij} $$
 	
-	where $x_{i_0} = 1$ for all $i$ to account for the intercept term. The linear predictor $\eta_i$ can take any real value in $\mathbb{R}$.
+	where $x_{i_0} = 1$ for all $i$ to account for the intercept term. The linear predictor $\mathbf{x}_i^T\boldsymbol{\beta}$ can take any real value in $\mathbb{R}$.
 	
 	\item \textbf{The Link Function:} This function $g(\cdot)$ connects the mean of the response variable $\mu_i = \mathbb{E}(Y_i)$ to the linear predictor:
-	$$ g(\mu_i) = \eta_i $$
+	$$ g(\mu_i) = \mathbf{x}_i^T\boldsymbol{\beta} $$
 	
 	The link function transforms the expected value of the response (which may be constrained to a specific range) to the scale of the linear predictor (which is unrestricted). The inverse link function is denoted as $g^{-1}$, so that:
-	$$ \mu_i = g^{-1}(\eta_i) $$
+	$$ \mu_i = g^{-1}(\mathbf{x}_i^T\boldsymbol{\beta}) $$
 	\end{enumerate}
 	
 	\subsubsection*{The Variance Function}
@@ -293,12 +291,9 @@
 	\subsubsection*{Canonical Links}
 	
 	For any exponential family distribution, there exists a special link function called the \textbf{canonical link}. The canonical link is defined as:
-	$$ g(\mu_i) = \theta_i $$
+	$$ g(\mu_i) = g(b'(\theta_i)) = (b'(\theta_i))^{-1} = \beta_0 + \beta_1 x_{i_1} + \cdots + \beta_p x_{i_p} = \theta_i $$
 	
-	In other words, the canonical link function sets the linear predictor equal to the canonical parameter. This gives:
-	$$ \theta_i = \eta_i = \beta_0 + \beta_1 x_{i_1} + \cdots + \beta_p x_{i_p} $$
-	
-	Canonical links lead to simpler mathematical forms for the likelihood equations and maximum likelihood estimation becomes numerically more stable. However, the canonical link is not always the most appropriate choice for modeling. While it offers computational and theoretical advantages, the choice of link function should ultimately be guided by the scientific context and the interpretability of the model parameters.
+	In other words, the canonical link function sets the linear predictor equal to the canonical parameter. Canonical links lead to simpler mathematical forms for the likelihood equations and maximum likelihood estimation becomes numerically more stable. However, the canonical link is not always the most appropriate choice for modeling. While it offers computational and theoretical advantages, the choice of link function should ultimately be guided by the scientific context and the interpretability of the model parameters.
 	
 	\subsection*{Common GLM Families and Their Properties}
 	
@@ -330,16 +325,16 @@
 	
 	\textbf{Properties:}
 	\begin{itemize}
-		\item Mean: $\mathbb{E}(Y_i/n_i) = p_i$
-		\item Variance: $\displaystyle \text{var} \left( Y_i / n_i \right) = \frac{1}{n_i}p_i(1-p_i)$
+		\item Mean: $\mathbb{E}[Y_i / n_i] = p_i$
+		\item Variance: $\displaystyle \text{var} \left( Y_i / n_i \right) = \frac{1}{n_i} p_i (1 - p_i)$
 		\item Canonical parameter: $\theta = \log\left(\frac{p}{1-p}\right)$ (log-odds)
 		\item Dispersion parameter: $\phi = 1$ (known)
-		\item Variance function: $V(\mu_i) = \mu_i(1-\mu_i)$
-		\item Canonical link: $g(\mu_i) = \log\left(\frac{\mu_i}{1-\mu_i}\right)$ (logit link)
+		\item Variance function: $V(\mu_i) = \mu_i (1 - \mu_i)$
+		\item Canonical link: $g(\mu_i) = \log\left(\frac{\mu_i}{1 - \mu_i}\right)$ (logit link)
 	\end{itemize}
 	
 	The logit link function maps probabilities from the interval $(0,1)$ to the entire real line $(-\infty, \infty)$, making it appropriate for the linear predictor. The inverse logit (logistic function) is:
-	$$ \mu_i = \frac{\exp(\eta_i)}{1 + \exp(\eta_i)} = \frac{1}{1 + \exp(-\eta_i)} $$
+	$$ \mu_i = \frac{e^{\mathbf{x}_i^T\boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}} = \frac{1}{1 + e^{-\mathbf{x}_i^T\boldsymbol{\beta}}} $$
 	
 	Alternative link functions for binomial data include:
 	\begin{itemize}
@@ -362,7 +357,7 @@
 	\end{itemize}
 	
 	The log link ensures that the predicted mean is always positive, which is necessary for count data. The inverse link is:
-	$$ \mu_i = \exp(\eta_i) $$
+	$$ \mu_i = e^{\mathbf{x}_i^T\boldsymbol{\beta}} $$
 	
 	This means that the effects of predictors are multiplicative on the original scale:
 	$$ \mathbb{E}[Y_i] = \exp(\beta_0 + \beta_1 x_{i_1} + \cdots + \beta_p x_{i_p}) $$
@@ -372,19 +367,23 @@
 	\subsection*{Maximum Likelihood Estimation for GLMs}
 	
 	Parameter estimation in GLMs is performed using maximum likelihood. For a sample $y_1, y_2, \dots, y_n$ from an exponential family distribution, the log-likelihood is:
-	$$ L(\boldsymbol{\beta}) = \sum_{i=1}^{n} \left( \frac{y_i\theta_i - b(\theta_i)}{\phi_i} + c(y_i, \phi_i) \right) $$
+	$$ L(\boldsymbol{\beta}) = \sum_{i=1}^{n} \left\{ \frac{y_i\theta_i - b(\theta_i)}{\phi_i + c(y_i, \phi_i)} \right\} $$
 	
-	From \cite{GLM}, the maximum likelihood estimates are obtained by solving:
-	$$ \frac{\partial L(\boldsymbol{\beta})}{\partial \beta_j} = \sum_{i=1}^{n} \frac{y_i - \mu_i}{\phi_i V(\mu_i)} \times \frac{x_{ij}}{g'(\mu_i)} = 0 $$
+	Following \cite{GLM}, assume that the dispersion parameters can be written as:
+	$$ \phi_i = \frac{\phi}{a_i} $$
+	where $\phi$ is a single dispersion parameter and $a_i$ are known prior weights. For example, binomial proportions with known index $n_i$ have $\phi = 1$ and $a_i = n_i$.
 	
-	for each parameter $\beta_j$, where $g'(\mu_i)$ is the derivative of the link function.
+	The maximum likelihood estimates are obtained by solving the score equations:
+	$$ \frac{\partial L(\boldsymbol{\beta})}{\partial \beta_j} = \sum_{i=1}^{n} \frac{y_i - \mu_i}{\phi_i V(\mu_i)} \times \frac{x_{ij}}{g'(\mu_i)} = \sum_{i=1}^{n} \frac{a_i (y_i - \mu_i)}{V(\mu_i)} \times \frac{x_{ij}}{g'(\mu_i)} = 0 $$
 	
-	\subsubsection*{Iteratively Reweighted Least Squares (IRLS)}
+	for each parameter $\beta_j$, where $g'(\mu_i)$ is the derivative of the link function with respect to $\mu_i$. Note that these estimating equations do not depend on $\phi$, which may be unknown.
 	
-	Unlike ordinary linear models where a closed-form solution exists, GLMs generally require iterative numerical methods. The standard algorithm is Iteratively Reweighted Least Squares (IRLS), also known as Fisher's Method of Scoring.
+	\subsubsection*{Iteratively (Re-)Weighted Least Squares (IRLS)}
 	
-	\begin{algorithm}
-		\caption{Iteratively Reweighted Least Squares (IRLS) for GLMs}
+	Unlike ordinary linear models where a closed-form solution exists, GLMs generally require iterative numerical methods. The standard algorithm is Iteratively (Re-)Weighted Least Squares (IRLS), also known as Fisher's Method of Scoring. For models using the canonical link, IRLS simplifies to the Newton-Raphson method, as the expected and observed information matrices coincide.
+	
+	\begin{algorithm}[H]
+		\caption{Iteratively (Re-)Weighted Least Squares (IRLS) for GLMs}
 		\begin{algorithmic}[1]
 			\Require Design matrix $\mathbf{X} \in \mathbb{R}^{n \times p}$, response vector $\mathbf{y} \in \mathbb{R}^n$, link function $g(\cdot)$, variance function $V(\cdot)$, prior weights $\mathbf{a} \in \mathbb{R}^n$, tolerance $\epsilon > 0$, maximum iterations $M$
 			\Ensure Parameter estimates $\hat{\boldsymbol{\beta}} \in \mathbb{R}^p$
@@ -392,24 +391,24 @@
 			\State \textbf{Initialize:} Set $\boldsymbol{\beta}^{(0)} \gets \mathbf{0}$ (or other suitable starting values)
 			\State Compute $\boldsymbol{\eta}^{(0)} \gets \mathbf{X}\boldsymbol{\beta}^{(0)}$
 			\State Compute $\boldsymbol{\mu}^{(0)} \gets g^{-1}(\boldsymbol{\eta}^{(0)})$ \Comment{Apply inverse link elementwise}
-			\State Set $r \gets 0$
+			\State Set $r \gets 0$ \Comment{For termination}
 			
 			\Repeat
-			\State \textbf{// Step 2: Compute working responses}
+			\State \textbf{// Step 1: Compute working responses}
 			\For{$i = 1$ to $n$}
-			\State $z_i^{(r)} \gets \eta_i^{(r)} + (y_i - \mu_i^{(r)}) \cdot g'(\mu_i^{(r)})$
+			\State $z_i^{(r)} \gets \mathbf{x}_i^T\boldsymbol{\beta}^{(r)} + (y_i - \mu_i^{(r)}) \cdot g'(\mu_i^{(r)})$
 			\EndFor
 			
-			\State \textbf{// Step 3: Compute iterative weights}
+			\State \textbf{// Step 2: Compute iterative weights}
 			\For{$i = 1$ to $n$}
-			\State $w_i^{(r)} \gets \dfrac{a_i}{V(\mu_i^{(r)}) \cdot [g'(\mu_i^{(r)})]^2}$
+			\State $w_i^{(r)} \gets \dfrac{a_i}{V(\mu_i^{(r)}) \cdot (g'(\mu_i^{(r)}))^2}$
 			\EndFor
 			\State $\mathbf{W}^{(r)} \gets \text{diag}(w_1^{(r)}, w_2^{(r)}, \ldots, w_n^{(r)})$
 			
-			\State \textbf{// Step 4: Weighted least squares update}
+			\State \textbf{// Step 3: Weighted least squares update}
 			\State $\boldsymbol{\beta}^{(r+1)} \gets (\mathbf{X}^T \mathbf{W}^{(r)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(r)} \mathbf{z}^{(r)}$
 			
-			\State \textbf{// Step 5: Update fitted values}
+			\State \textbf{// Step 4: Update fitted values}
 			\State $\boldsymbol{\eta}^{(r+1)} \gets \mathbf{X}\boldsymbol{\beta}^{(r+1)}$
 			\State $\boldsymbol{\mu}^{(r+1)} \gets g^{-1}(\boldsymbol{\eta}^{(r+1)})$
 			
@@ -423,105 +422,279 @@
 		\end{algorithmic}
 	\end{algorithm}
 	
-	For models using the canonical link, IRLS simplifies to the Newton-Raphson method, as the expected and observed information matrices coincide.
+	\newpage
+	\section{Model Selection and Evaluation (For Fun)}
+	\label{sec:model_selection}
 	
-	\subsubsection*{Asymptotic Properties and Inference}
+	Once a GLM has been fitted, it is essential to evaluate its adequacy and compare it with alternative models. This section covers the primary tools for model selection and evaluation in the GLM framework, including deviance, the Akaike Information Criterion, and residual analysis.
 	
-	The maximum likelihood estimator $\hat{\boldsymbol{\beta}}$ has desirable asymptotic properties. As the sample size $n \to \infty$:
-	$$ \hat{\boldsymbol{\beta}} \xrightarrow{d} \mathcal{N}(\boldsymbol{\beta}, \mathbf{I}^{-1}(\boldsymbol{\beta})) $$
+	\subsection*{Deviance}
 	
-	where $\mathbf{I}(\boldsymbol{\beta})$ is the Fisher information matrix:
-	$$ \mathbf{I}(\boldsymbol{\beta}) = \phi^{-1} \mathbf{X}^T \mathbf{W} \mathbf{X} $$
+	The deviance is a key measure of model fit in GLMs, generalizing the residual sum of squares from linear regression. It quantifies how well the fitted model explains the data by comparing it to a saturated model. The saturated model is one in which the number of parameters equals the number of observations, yielding perfect fit with $\hat{y}_i = y_i$ for all observations. The deviance measures twice the difference in log-likelihood between the saturated model and the fitted model, scaled by the dispersion parameter.
 	
-	The estimated covariance matrix of $\hat{\boldsymbol{\beta}}$ is:
-	$$ \widehat{\text{cov}}(\hat{\boldsymbol{\beta}}) = \hat{\phi}(\mathbf{X}^T \hat{\mathbf{W}} \mathbf{X})^{-1} $$
+	\subsection*{Deviance}
 	
-	where $\hat{\mathbf{W}}$ is computed at the final iteration of IRLS.
+	The deviance is a key measure of model fit in GLMs, generalizing the residual sum of squares from linear regression. It quantifies how well the fitted model explains the data by comparing it to a saturated model.
 	
-	Standard errors for individual parameters are obtained as:
-	$$ \text{SE}(\hat{\beta}_j) = \sqrt{[\widehat{\text{cov}}(\hat{\boldsymbol{\beta}})]_{jj}} $$
+	\subsubsection*{Definition}
 	
-	For testing individual coefficients, we can use Wald tests. To test $H_0: \beta_j = 0$ versus $H_1: \beta_j \neq 0$:
-	$$ z_j = \frac{\hat{\beta}_j}{\text{SE}(\hat{\beta}_j)} $$
-	
-	which is asymptotically $\mathcal{N}(0,1)$ under $H_0$ when $\phi$ is known (e.g., for binomial and Poisson models). When $\phi$ must be estimated (e.g., for normal and gamma models), a $t$-distribution with $n-p$ degrees of freedom is used instead.
-	
-	\subsection*{Deviance and Model Comparison}
-	
-	The deviance is a key measure of model fit for GLMs, analogous to the residual sum of squares in linear models. It is defined as:
+	The deviance of a fitted model is defined as:
 	$$ D = 2\phi(L_{\text{sat}} - L_{\text{mod}}) $$
 	
-	where $L_{\text{mod}}$ is the log-likelihood of the fitted model and $L_{\text{sat}}$ is the log-likelihood of the saturated model.
+	where:
+	\begin{itemize}
+		\item $L_{\text{mod}}$ is the log-likelihood of the fitted model
+		\item $L_{\text{sat}}$ is the log-likelihood of the saturated model
+		\item $\phi$ is the dispersion parameter
+	\end{itemize}
 	
-	The saturated model is one that fits the data perfectly by having as many parameters as observations, so that $\hat{y}_i = y_i$ for all $i$. The deviance measures how far the fitted model deviates from perfect fit.
+	The saturated model is one in which the number of parameters equals the number of observations, yielding perfect fit with $\hat{y}_i = y_i$ for all observations.
 	
-	For models with dispersion parameter $\phi = 1$ (binomial and Poisson), the deviance is:
-	$$ D = 2\sum_{i=1}^{n} \left[ y_i(\tilde{\theta}_i - \hat{\theta}_i) - b(\tilde{\theta}_i) + b(\hat{\theta}_i) \right] $$
+	\subsubsection*{Example: Saturated Model}
 	
-	where $\tilde{\theta}_i$ corresponds to the saturated model and $\hat{\theta}_i$ corresponds to the fitted model.
+	Consider a simple dataset with three observations: $y_1 = 2$, $y_2 = 5$, $y_3 = 3$. In a saturated model, there are 3 parameters (one per observation), resulting in the perfect fit:
+	$$ \hat{\mu}_1 = 2, \quad \hat{\mu}_2 = 5, \quad \hat{\mu}_3 = 3 $$
 	
-	\subsubsection*{Specific Deviance Forms}
+	This model always achieves $\hat{y}_i = y_i$, representing the best possible fit. Any simpler model with fewer parameters (e.g., $\mu_i = \beta_0 + \beta_1 x_i$ with only two parameters) will generally fit less well, and the deviance measures this loss of fit.
 	
-	\textbf{Normal (Gaussian):}
-	$$ D = \sum_{i=1}^{n} (y_i - \hat{\mu}_i)^2 $$
-	This is exactly the residual sum of squares.
+	\subsubsection*{Properties and Interpretation}
 	
-	\textbf{Binomial:}
-	$$ D = 2\sum_{i=1}^{n} \left[ y_i \log\left(\frac{y_i}{\hat{\mu}_i}\right) + (n_i - y_i)\log\left(\frac{n_i - y_i}{n_i - \hat{\mu}_i}\right) \right] $$
+	\begin{itemize}
+		\item \textbf{Scale:} The deviance is always non-negative, with $D = 0$ indicating perfect fit (the fitted model equals the saturated model)
+		\item \textbf{Degrees of Freedom:} The deviance has $n - p$ degrees of freedom, where $n$ is the number of observations and $p$ is the number of parameters (including the intercept)
+		\item \textbf{Comparison:} For nested models, the difference in deviances follows approximately a chi-squared distribution under certain regularity conditions, enabling likelihood ratio tests. Two models are \textbf{nested} when one model (the reduced model) is a special case of the other (the full model), obtained by setting some parameters to zero or imposing constraints. For example, the model $\mu_i = \beta_0 + \beta_1 x_{i_1}$ is nested within $\mu_i = \beta_0 + \beta_1 x_{i_1} + \beta_2 x_{i_2}$.
+		
+		Specifically, if Model 0 (reduced) has $p_0$ parameters with deviance $D_0$, and Model 1 (full) has $p_1 > p_0$ parameters with deviance $D_1$, then under the null hypothesis that the reduced model is adequate:
+		$$ \chi^2 = D_0 - D_1 \sim \chi^2_{p_1 - p_0} = \sum \limits_{i = 1}^{p_1 - p_0} Z_i \text{ where } Z_i \sim \mathcal{N}(0, 1) \text{ (i.i.d.)} $$
+		where $\chi^2_{p_1 - p_0}$ denotes a chi-squared distribution with $p_1 - p_0$ degrees of freedom.
+	\end{itemize}
 	
-	\textbf{Poisson:}
-	$$ D = 2\sum_{i=1}^{n} \left[ y_i \log\left(\frac{y_i}{\hat{\mu}_i}\right) - (y_i - \hat{\mu}_i) \right] $$
+	\subsection*{Akaike Information Criterion (AIC)}
 	
-	\subsubsection*{Comparing Nested Models}
+	The Akaike Information Criterion is a widely used measure for model selection that balances goodness of fit against model complexity. Unlike deviance-based tests, AIC can be used to compare non-nested models.
 	
-	For nested models (where one model is a special case of another), we can test whether the additional parameters significantly improve the fit using a likelihood ratio test.
+	\subsubsection*{Definition}
 	
-	Let $M_0$ be the simpler model (with $p_0$ parameters) and $M_1$ be the more complex model (with $p_1 > p_0$ parameters). The test statistic is:
-	$$ \Delta D = D_0 - D_1 $$
-	
-	Under $H_0$ (that the simpler model is adequate), for models with $\phi = 1$:
-	$$ \Delta D \xrightarrow{d} \chi^2_{p_1 - p_0} $$
-	
-	For models where $\phi$ must be estimated, we use an $F$-test:
-	$$ F = \frac{(D_0 - D_1)/(p_1 - p_0)}{\hat{\phi}} \sim F_{p_1-p_0, n-p_1} $$
-	
-	\subsection*{Model Selection Criteria}
-	
-	\subsubsection*{Akaike Information Criterion (AIC)}
-	
-	The AIC provides a measure of model quality that balances goodness of fit with model complexity:
+	The AIC is defined as ($L_{\text{mod}} \gets$ the log-likelihood of the fitted model; $p \gets$ the number of parameters):
 	$$ \text{AIC} = -2L_{\text{mod}} + 2p $$
 	
-	where $p$ is the number of parameters in the model. Lower AIC values indicate better models. The AIC penalizes overly complex models, helping to avoid overfitting.
 	
-	When comparing multiple models, we select the one with the minimum AIC. The AIC can be used to compare non-nested models, unlike the likelihood ratio test.
+	\subsubsection*{Interpretation and Use}
 	
-	\subsubsection*{Bayesian Information Criterion (BIC)}
+	\begin{itemize}
+		\item \textbf{Penalty Term:} The term $2p$ penalizes model complexity, discouraging overfitting
+		\item \textbf{Comparison:} Lower AIC values indicate better models. AIC does not provide an absolute measure of fit, only a relative comparison between models
+		\item \textbf{Non-nested Models:} AIC can compare models that are not nested
+		\item \textbf{Trade-off:} AIC explicitly trades off goodness of fit (measured by $-2L_{\text{mod}}$) against model parsimony (measured by $2p$)
+	\end{itemize}
 	
-	An alternative to AIC is the BIC (also called Schwarz criterion):
-	$$ \text{BIC} = -2L_{\text{mod}} + p\log(n) $$
+	\textbf{Note:} AIC values are only comparable when models are fitted to the same data and use the same probability distribution. Constants in the log-likelihood function are sometimes omitted in computational implementations, so AIC values for models with different error distributions (e.g., normal vs. gamma) may not be directly comparable.
 	
-	The BIC imposes a stronger penalty for model complexity than the AIC, especially for large sample sizes. This tends to favor more parsimonious models.
+	\subsection*{Likelihood Ratio Tests}
 	
-	\subsection*{Residuals for GLMs}
+	For nested models (where one model is a special case of another), the difference in deviances can be used to test whether the additional parameters significantly improve the fit.
 	
-	Several types of residuals can be defined for GLMs, each serving different diagnostic purposes:
+	\subsubsection*{Test Statistic}
 	
-	\textbf{Response Residuals:}
-	$$ r_i = y_i - \hat{\mu}_i $$
+	Given two nested models:
+	\begin{itemize}
+		\item Model 0 (reduced): $p_0$ parameters, deviance $D_0$
+		\item Model 1 (full): $p_1$ parameters, deviance $D_1$, where $p_1 > p_0$
+	\end{itemize}
 	
-	\textbf{Pearson Residuals:}
-	$$ r_i^P = \frac{y_i - \hat{\mu}_i}{\sqrt{V(\hat{\mu}_i)}} $$
+	The likelihood ratio test statistic is:
+	$$ \Lambda = D_0 - D_1 = 2 (L_1 - L_0) $$
 	
-	These are standardized by the estimated standard deviation of $Y_i$.
+	Under the null hypothesis that the reduced model is adequate, $\Lambda$ follows approximately a chi-squared distribution with $p_1 - p_0$ degrees of freedom:
+	$$ \Lambda \sim \chi^2_{p_1 - p_0} $$
 	
-	\textbf{Deviance Residuals:}
-	$$ r_i^D = \text{sign}(y_i - \hat{\mu}_i) \sqrt{d_i} $$
+	\subsubsection*{Decision Rule}
 	
-	where $d_i$ is the contribution of observation $i$ to the total deviance, and $\text{sign}(\cdot)$ ensures the residual has the same sign as $y_i - \hat{\mu}_i$. The sum of squared deviance residuals equals the deviance: $\sum_{i=1}^{n} (r_i^D)^2 = D$.
+	The null hypothesis is rejected (and favor the more complex model) if:
+	$$ \Lambda > \chi^2_{p_1 - p_0, \alpha} $$
 	
-	Deviance residuals are the default in most statistical software for GLM diagnostics because they directly relate to the fitting criterion used in maximum likelihood estimation.
+	where $\chi^2_{p_1 - p_0, \alpha}$ is the critical value of the chi-squared distribution at significance level $\alpha$.
+	
+	
+	\subsection*{Model Selection Strategy}
+	
+	A systematic approach to model selection typically involves:
+	
+	\begin{enumerate}
+		\item \textbf{Start with a Full Model:} Include all potentially relevant predictors and interactions
+		
+		\item \textbf{Compare Nested Models:} Use likelihood ratio tests (deviance differences) to test whether terms can be removed
+		
+		\item \textbf{Use AIC for Non-nested Comparisons:} When comparing models that are not nested (e.g., different link functions or variance structures), use AIC
+		
+		\item \textbf{Consider Scientific Context:} Statistical criteria should be balanced with subject-matter knowledge and interpretability
+	\end{enumerate}
 
+	\newpage
+	\section{Calculating MLE for Binomial GLM}
+	\label{sec:binomial_mle}
+	
+	This section demonstrates the complete maximum likelihood estimation procedure for a binomial GLM with the canonical logit link. We will derive the log-likelihood, score equations, and show how the IRLS algorithm applies to this specific case.
+	
+	\subsection*{Model Setup}
+	
+	Suppose we have $N$ independent observations $Y_1, Y_2, \dots, Y_N$ where:
+	$$ Y_i \sim \text{Binomial}(n_i, p_i) $$
+	
+	Here, $n_i$ is the known number of trials for observation $i$, and $p_i$ is the unknown probability of success we wish to model. The expected value is $\mathbb{E}[Y_i] = n_i p_i$ and variance is $\text{var}(Y_i) = n_i p_i (1 - p_i)$.
+	
+	We model the probability $p_i$ using the logit link (the canonical link for binomial data):
+	$$ \log\left(\frac{p_i}{1 - p_i}\right) = \mathbf{x}_i^T\boldsymbol{\beta} = \beta_0 + \beta_1 x_{i_1} + \cdots + \beta_p x_{i_p} $$
+	
+	The inverse link gives us the \textit{sigmoid} function:
+	$$ p_i = \frac{e^{\mathbf{x}_i^T\boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}} = \frac{1}{1 + e^{-\mathbf{x}_i^T\boldsymbol{\beta}}} $$
+	
+	\subsection*{Likelihood Function}
+	
+	The probability mass function for a single observation $Y_i$ is:
+	$$ f(y_i; p_i) = \binom{n_i}{y_i} p_i^{y_i} (1 - p_i)^{n_i - y_i} $$
+	
+	Since the observations are independent, the likelihood function is:
+	$$ L(\boldsymbol{\beta}) = \prod_{i=1}^{N} \binom{n_i}{y_i} p_i^{y_i} (1 - p_i)^{n_i - y_i} $$
+	
+	\subsection*{Log-Likelihood Function}
+	
+	Taking the natural logarithm:
+	$$ \begin{aligned}
+		\ln L(\boldsymbol{\beta}) &= \sum_{i=1}^{N} \left[ \ln\binom{n_i}{y_i} + y_i \ln(p_i) + (n_i - y_i) \ln(1 - p_i) \right]
+	\end{aligned} $$
+	
+	Substituting $p_i = \frac{e^{\mathbf{x}_i^T\boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}}$ and $1 - p_i = \frac{1}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}}$:
+	$$ \ln(p_i) = \ln\left(\frac{e^{\mathbf{x}_i^T\boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}}\right) = \mathbf{x}_i^T\boldsymbol{\beta} - \ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) $$
+	$$ \ln(1 - p_i) = \ln\left(\frac{1}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}}\right) = -\ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) $$
+	
+	Substituting these into the log-likelihood:
+	$$ \begin{aligned}
+		\ln L(\boldsymbol{\beta}) &= \sum_{i=1}^{N} \left[ \ln\binom{n_i}{y_i} + y_i(\mathbf{x}_i^T\boldsymbol{\beta} - \ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}})) - (n_i - y_i)\ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) \right] \\
+		&= \sum_{i=1}^{N} \left[ \ln\binom{n_i}{y_i} + y_i\mathbf{x}_i^T\boldsymbol{\beta} - n_i \cdot \ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) \right] \\
+		&= \sum_{i=1}^{N} \ln\binom{n_i}{y_i} + \sum_{i=1}^{N} \left[ y_i\mathbf{x}_i^T\boldsymbol{\beta} - n_i \cdot \ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) \right]
+	\end{aligned} $$
+	
+	The first term does not depend on $\boldsymbol{\beta}$ and can be ignored during optimization. Thus, the log-likelihood to maximize is:
+	$$ \ln L(\boldsymbol{\beta}) = \sum_{i=1}^{N} \left[ y_i\mathbf{x}_i^T\boldsymbol{\beta} - n_i\ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) \right] $$
+	
+	\subsection*{Score Equations}
+	
+	To find the maximum likelihood estimates, we compute the score function (the gradient of the log-likelihood with respect to $\boldsymbol{\beta}$):
+	$$ \frac{\partial \ln L(\boldsymbol{\beta})}{\partial \beta_j} = \sum_{i=1}^{N} \left[ y_i \frac{\partial \mathbf{x}_i^T\boldsymbol{\beta}}{\partial \beta_j} - n_i \cdot \frac{\partial}{\partial \beta_j}\ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) \right] $$
+	
+	Since $\displaystyle \mathbf{x}_i^T\boldsymbol{\beta} = \sum_{k=0}^{p} \beta_k x_{i_k}$ (with $x_{i0} = 1$), we have $\frac{\partial \mathbf{x}_i^T\boldsymbol{\beta}}{\partial \beta_j} = x_{i_j}$.
+	
+	For the second term:
+	$$n_i \cdot \frac{\partial}{\partial \beta_j}\ln(1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}) = n_i \cdot \frac{e^{\mathbf{x}_i^T\boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}} \cdot \frac{\partial \mathbf{x}_i^T\boldsymbol{\beta}}{\partial \beta_j} = n_i \cdot p_i \cdot x_{i_j} $$
+	
+	Therefore:
+	$$ \frac{\partial \ln L(\boldsymbol{\beta})}{\partial \beta_j} = \sum_{i=1}^{N} x_{i_j}(y_i - n_i\cdot  p_i) = \sum_{i=1}^{N} x_{i_j}(y_i - \mu_i) $$
+	
+	where $\mu_i = n_i \cdot p_i = \mathbb{E}[Y_i]$ is the expected value.
+	
+	Setting the score equations to zero:
+	$$ \sum_{i=1}^{N} x_{i_j}(y_i - \mu_i) = 0 \quad \text{for } j = 0, 1, \dots, p $$
+	
+	In matrix form:
+	$$ \mathbf{X}^T(\mathbf{y} - \boldsymbol{\mu}) = \mathbf{0} $$
+	
+	These equations do not have a closed-form solution and must be solved iteratively using IRLS.
+	
+	\subsection*{IRLS Components for Binomial GLM}
+	
+	For the binomial GLM with logit link, we need to specify the components of the IRLS algorithm (Algorithm 1):
+	
+	\textbf{1. Link function and its derivative:}
+	$$ g(p_i) = \log\left(\frac{p_i}{1 - p_i}\right) = \mathbf{x}_i^T\boldsymbol{\beta} $$
+	$$ g'(p_i) = \frac{\partial}{\partial p_i}\log\left(\frac{p_i}{1 - p_i}\right) = \frac{1}{p_i(1 - p_i)} $$
+	
+	\textbf{2. Inverse link function:}
+	$$ p_i = g^{-1}(\mathbf{x}_i^T\boldsymbol{\beta}) = \frac{e^{\mathbf{x}_i^T\boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T\boldsymbol{\beta}}} $$
+	
+	\textbf{3. Variance function:}
+	
+	For binomial data with $Y_i \sim \text{Binomial}(n_i, p_i)$, we have:
+	$$ \text{var}(Y_i) = n_i p_i (1 - p_i) = n_i \cdot \frac{\mu_i}{n_i} \left(1 - \frac{\mu_i}{n_i}\right) = \mu_i \left(1 - \frac{\mu_i}{n_i}\right) $$
+	
+	where $\mu_i = n_i p_i$. Expanding further:
+	$$ \text{var}(Y_i) = \mu_i \left(1 - \frac{\mu_i}{n_i}\right) = \mu_i - \frac{\mu_i^2}{n_i} = \frac{n_i\mu_i - \mu_i^2}{n_i} = \frac{\mu_i(n_i - \mu_i)}{n_i} $$
+	
+	The variance function $V(\mu_i)$ is defined such that $\text{var}(Y_i) = \phi V(\mu_i)$ with $\phi = 1$ for binomial data. Therefore:
+	$$ V(\mu_i) = \frac{\mu_i(n_i - \mu_i)}{n_i} $$
+	
+	Equivalently, in terms of $p_i = \mu_i/n_i$:
+	$$ V(\mu_i) = n_i p_i(1 - p_i) $$
+	
+	\textbf{4. Working responses:}
+	$$ z_i^{(r)} = \mathbf{x}_i^T\boldsymbol{\beta}^{(r)} + (y_i - \mu_i^{(r)}) \cdot g'(\mu_i^{(r)}/n_i) = \mathbf{x}_i^T\boldsymbol{\beta}^{(r)} + \frac{(y_i - \mu_i^{(r)})n_i}{\mu_i^{(r)}(n_i - \mu_i^{(r)})} $$
+	
+	\textbf{5. Iterative weights (with prior weights $a_i = n_i$):}
+	$$ w_i^{(r)} = \frac{n_i}{V(\mu_i^{(r)}) \cdot (g'(\mu_i^{(r)}/n_i))^2} = \frac{n_i}{\frac{\mu_i^{(r)}(n_i - \mu_i^{(r)})}{n_i} \cdot \frac{n_i^2}{(\mu_i^{(r)})^2(n_i - \mu_i^{(r)})^2}} = \frac{\mu_i^{(r)}(n_i - \mu_i^{(r)})}{n_i} $$
+	
+	Equivalently, in terms of $p_i^{(r)} = \mu_i^{(r)}/n_i$:
+	$$ w_i^{(r)} = n_i p_i^{(r)}(1 - p_i^{(r)}) $$
+	
+	\begin{algorithm}[H]
+		\caption{IRLS for Binomial GLM with Logit Link}
+		\begin{algorithmic}[1]
+			\Require Design matrix $\mathbf{X} \in \mathbb{R}^{N \times (p+1)}$, response vector $\mathbf{y} \in \mathbb{R}^N$, trial counts $\mathbf{n} \in \mathbb{R}^N$, tolerance $\epsilon > 0$, maximum iterations $M$
+			\Ensure Parameter estimates $\hat{\boldsymbol{\beta}} \in \mathbb{R}^{p+1}$
+			
+			\State \textbf{Initialize:} Set $\boldsymbol{\beta}^{(0)} \gets \mathbf{0}$ (or use starting values from linear probability model)
+			\State Set $r \gets 0$
+			
+			\Repeat
+			\State \textbf{// Step 1: Compute linear predictors}
+			\For{$i = 1$ to $N$}
+			\State $\eta_i^{(r)} \gets \mathbf{x}_i^T\boldsymbol{\beta}^{(r)}$
+			\EndFor
+			
+			\State \textbf{// Step 2: Compute fitted probabilities and means}
+			\For{$i = 1$ to $N$}
+			\State $p_i^{(r)} \gets \dfrac{e^{\eta_i^{(r)}}}{1 + e^{\eta_i^{(r)}}}$ \Comment{Inverse logit}
+			\State $\mu_i^{(r)} \gets n_i \cdot p_i^{(r)}$
+			\EndFor
+			
+			\State \textbf{// Step 3: Compute working responses}
+			\For{$i = 1$ to $N$}
+			\State $z_i^{(r)} \gets \eta_i^{(r)} + \dfrac{y_i - \mu_i^{(r)}}{n_i p_i^{(r)}(1 - p_i^{(r)})}$
+			\EndFor
+			
+			\State \textbf{// Step 4: Compute iterative weights}
+			\For{$i = 1$ to $N$}
+			\State $w_i^{(r)} \gets n_i p_i^{(r)}(1 - p_i^{(r)})$
+			\EndFor
+			\State $\mathbf{W}^{(r)} \gets \text{diag}(w_1^{(r)}, w_2^{(r)}, \ldots, w_N^{(r)})$
+			
+			\State \textbf{// Step 5: Weighted least squares update}
+			\State $\boldsymbol{\beta}^{(r+1)} \gets (\mathbf{X}^T \mathbf{W}^{(r)} \mathbf{X})^{-1} \mathbf{X}^T \mathbf{W}^{(r)} \mathbf{z}^{(r)}$
+			
+			\State \textbf{// Step 6: Check convergence}
+			\State $\delta \gets \|\boldsymbol{\beta}^{(r+1)} - \boldsymbol{\beta}^{(r)}\|_2$
+			\State $r \gets r + 1$
+			
+			\Until{$\delta < \epsilon$ \textbf{or} $r \geq M$}
+			
+			\State \Return $\boldsymbol{\beta}^{(r)}$
+		\end{algorithmic}
+	\end{algorithm}
+	
+	\subsection*{Special Case: Logistic Regression}
+	
+	When $n_i = 1$ for all observations (Bernoulli trials), this becomes standard logistic regression:
+	\begin{itemize}
+		\item $\mu_i = p_i$ (the expected value equals the probability)
+		\item $V(\mu_i) = \mu_i(1 - \mu_i)$
+		\item $w_i^{(r)} = p_i^{(r)}(1 - p_i^{(r)})$
+		\item $z_i^{(r)} = \eta_i^{(r)} + \frac{y_i - p_i^{(r)}}{p_i^{(r)}(1 - p_i^{(r)})}$
+	\end{itemize}
+	
+	The interpretation of the coefficients is in terms of log-odds: a one-unit increase in predictor $x_j$ changes the log-odds of success by $\beta_j$, or equivalently, multiplies the odds by $\exp(\beta_j)$.
+	
+	\section{The Simulation}
+	
+	The following results are from running the code in \cite{glema}.
 	
 	\newpage
 	\begin{thebibliography}{1}	
