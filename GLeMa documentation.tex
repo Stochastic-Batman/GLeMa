@@ -7,6 +7,7 @@
 \usepackage{float}
 \usepackage{geometry}
 \usepackage{graphicx}
+\usepackage{hyperref}
 
 
 \title{GLeMa: Maximum Likelihood Estimation for Generalized Linear Models}
@@ -241,7 +242,7 @@
 	\subsubsection*{Exponential Family}
 	
 	Most commonly used statistical distributions belong to the exponential family, whose probability density (or mass) functions can be written in the canonical from  \cite{GLM}:
-	$$ f(y; \theta, \phi) = \exp \left( \frac{y\theta - b(\theta)}{\phi + c(y, \phi)} \right) $$
+	$$ f(y; \theta, \phi) = \exp \left( \frac{y\theta - b(\theta)}{\phi} + c(y, \phi) \right) $$
 	
 	where:
 	\begin{itemize}
@@ -694,7 +695,24 @@
 	
 	\section{The Simulation}
 	
-	The following results are from running the code in \cite{glema}.
+	The following results are from running the code 
+	\texttt{IRLS\_for\_Binomial\_GLM\_with\_Logit\_Link.R} \cite{glema}. \\
+	
+	In my simulation, I generated synthetic binomial data to evaluate whether my IRLS implementation could correctly recover the maximum-likelihood estimates for a logistic regression model. The algorithm converged in $8$ iterations. Not too surprising considering the data size. Everything was measured with a precision of \textit{four decimal places}.
+	
+	The most important result is that my coefficient estimates matched R's \texttt{glm()} output exactly, with differences numerically equal to $0$. Practically, this means my IRLS code is a correct computational realization of the theoretical steps derived in \hyperref[sec:binomial_mle]{Section \ref{sec:binomial_mle}}.
+	
+	When I compared the IRLS estimates to the true parameter vector, I observed small deviations such as roughly $0.04$ to $0.17$ in absolute error. These discrepancies are normal: even with a perfectly specified model, maximum-likelihood estimates will not equal the true coefficients unless the sample size approaches infinity. To quantify overall accuracy, I computed a root mean squared error of about $0.13$, which is small relative to the magnitudes of the actual coefficients and thus reflects a high-quality fit.
+	
+	\hyperref[fig:true_vs_fitted_probabilities]{Figure \ref{fig:true_vs_fitted_probabilities}} further confirms this. In the figure, nearly all the blue points lie directly on the $45^\circ$ line, meaning the fitted probabilities are almost identical to the true probabilities used to generate the data. There is no visible curvature or bias, even at the extremes near $0$ and $1$. This visual agreement reinforces that the model is well calibrated and that the IRLS procedure is estimating the probability surface accurately.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.65\linewidth]{images/true_vs_fitted_probabilities.png}
+		\caption{True vs Fitted Probabilities}
+		\label{fig:true_vs_fitted_probabilities}
+	\end{figure}
+	
 	
 	\newpage
 	\begin{thebibliography}{1}	
