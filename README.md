@@ -1,7 +1,6 @@
-# **GLeMa: Maximum Likelihood Estimation for Generalized Linear Models**
+# **GLeMa**
 
-**GLeMa** is a two-part analytical and computational project focused on deriving and implementing **Maximum Likelihood Estimators (MLEs)** for **Generalized Linear Models (GLMs)**.
-The project combines mathematical derivations with practical computation in **R**, and applies the concepts to a real-world dataset from Spotify and YouTube.
+**Maximum Likelihood Estimators (MLEs)** for **Generalized Linear Models (GLMs)**. The project combines mathematical derivations with practical computation in **R**.
 
 ## **Analytical Component - MLE for a GLM**
 
